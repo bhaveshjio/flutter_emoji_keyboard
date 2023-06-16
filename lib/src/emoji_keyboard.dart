@@ -23,12 +23,14 @@ class EmojiKeyboard extends StatefulWidget {
   final double emojiKeyboardHeight;
   final bool showEmojiKeyboard;
   final bool darkMode;
+  final Color backgrondColor;
 
   EmojiKeyboard(
       {Key? key,
       required this.emotionController,
       this.emojiKeyboardHeight = 350,
       this.showEmojiKeyboard = true,
+      this.backgrondColor = const Color(0xFFEAEDEF),
       this.darkMode = false})
       : super(key: key);
 
@@ -67,6 +69,7 @@ class EmojiBoard extends State<EmojiKeyboard> {
   bool showBottomBar = true;
   bool searchMode = false;
   bool darkMode = false;
+  Color backgrondColor = Color(0xFFEAEDEF);
   List<Emoji> recent = [];
   List<String> recentEmojis = [];
 
@@ -77,6 +80,7 @@ class EmojiBoard extends State<EmojiKeyboard> {
     this.bromotionController = widget.emotionController;
     this.emojiKeyboardHeight = widget.emojiKeyboardHeight;
     this.darkMode = widget.darkMode;
+    this.backgrondColor = widget.backgrondColor;
 
     storage.fetchAllEmojis().then((emojis) {
       if (emojis.isNotEmpty) {
@@ -373,12 +377,14 @@ class EmojiBoard extends State<EmojiKeyboard> {
                   ? emojiKeyboardHeight
                   : 150
               : 0,
-          color: this.darkMode ? Color(0xff373737) : Color(0xffc5c5c5),
+          color: this.darkMode ? Color(0xff373737) : this.backgrondColor,
           child: Column(children: [
             CategoryBar(
                 key: categoryBarStateKey,
                 categoryHandler: categoryHandler,
-                darkMode: darkMode),
+                darkMode: darkMode,
+                color: this.backgrondColor,
+            ),
             Stack(children: [
               EmojiPage(
                   key: emojiPageStateKey,
@@ -388,17 +394,17 @@ class EmojiBoard extends State<EmojiKeyboard> {
                   insertText: insertText,
                   recent: recentEmojis,
                   switchedPage: switchedPage),
-              BottomBar(
-                  key: bottomBarStateKey,
-                  bromotionController: bromotionController!,
-                  emojiSearch: emojiSearch,
-                  darkMode: darkMode),
+              // BottomBar(
+              //     key: bottomBarStateKey,
+              //     bromotionController: bromotionController!,
+              //     emojiSearch: emojiSearch,
+              //     darkMode: darkMode),
             ])
           ]),
         ),
         widget.showEmojiKeyboard && searchMode
             ? Container(
-                color: this.darkMode ? Color(0xff373737) : Color(0xffc5c5c5),
+                color: this.darkMode ? Color(0xff373737) : this.backgrondColor,
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [

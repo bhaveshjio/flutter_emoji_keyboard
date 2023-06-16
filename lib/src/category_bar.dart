@@ -5,9 +5,10 @@ import 'emoji_category_key.dart';
 class CategoryBar extends StatefulWidget {
   final Function(int) categoryHandler;
   final bool darkMode;
+  final Color? color;
 
   const CategoryBar(
-      {Key? key, required this.categoryHandler, required this.darkMode})
+      {Key? key, required this.categoryHandler, required this.darkMode,this.color})
       : super(key: key);
 
   @override
@@ -56,7 +57,7 @@ class CategoryBarState extends State<CategoryBar> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: widget.darkMode ? Color(0xff171717) : Color(0xffdbdbdb),
+      color: widget.color,
       height: emojiCategoryHeight,
       width: MediaQuery.of(context).size.width,
       child: SizedBox(

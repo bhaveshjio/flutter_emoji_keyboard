@@ -27,7 +27,7 @@ class EmojiCategoryKey extends StatelessWidget {
     return Container(
       decoration: active
           ? BoxDecoration(
-              shape: BoxShape.circle, color: Colors.blueGrey.shade200)
+              border: Border(bottom: BorderSide(color: Color(0xFFFC6770),width: 2)))
           : BoxDecoration(),
       child: SizedBox(
           width:
